@@ -1,2 +1,2 @@
 # Text-Editor-With-python
-TextEditor is a program that enables a user create,edit and modify text files.
+TextEditor is a program that enables a user create,delete and modify text files.
