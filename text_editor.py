@@ -7,7 +7,7 @@ class TextEditor:
     current_file="nothing"
     c=0
     def __init__(self,root):
-    
+        #gui started from here
         self.root=root
         #self.root.withdraw()
         self.root.title("Untitled -TextEditor")
@@ -81,6 +81,7 @@ class TextEditor:
         self.main_menu.add_cascade(label="Help",menu=self.help_menu)
         self.help_menu.add_command(label="Help     F12",command=self.HELP)
         self.root.protocol("WM_DELETE_WINDOW",self.exit)
+    #Code for open.
     def open(self,event=""):
             filedata=filedialog.askopenfile(initialdir="/",parent=root,title="Select File To Open",filetypes=(("text files","*.txt"),("all files","*.*")))
             if filedata !=None:
@@ -90,7 +91,10 @@ class TextEditor:
                 self.text_area.insert(END,line)
             self.current_file=filedata.name
             print(self.current_file)
-               # print(line)    
+               # print(line)
+    
+    
+    #Code for save as.
     def save_as(self,event=""):
         self.file_data=self.text_area.get('1.0',END+"-1c")
         if self.file_data!="":
@@ -106,7 +110,7 @@ class TextEditor:
                 filehnd.close()
         else:
             messagebox.showinfo("Empty File","File is Empty")
-            
+    #Code for save.       
     def save(self,event=""):
         if self.current_file=="nothing":
             self.save_as()
@@ -116,6 +120,7 @@ class TextEditor:
             f.write(self.data)
             f.close()
             #print("hi")
+    #Code for new.
     def new(self,event=""):
         if (self.text_area.get('1.0',END+'-1c')!=""):
             if messagebox.askokcancel("Text Editor","Do you want to save file"):
@@ -130,6 +135,7 @@ class TextEditor:
             self.root.title("Untitled -TextEditor")
         else:
             pass
+    #Code for exit.
     def exit(self,event=""):
         global c
         if self.current_file=="nothing":
@@ -148,41 +154,47 @@ class TextEditor:
                 self.root.destroy()
             else:
                 self.root.destroy()
-            
+    #Code for copy.        
     def copy(self):
         try:
             self.text_area.clipboard_clear()
             self.text_area.clipboard_append(self.text_area.selection_get())
         except:
             pass
+   #Code for cut.
     def cut(self):
         try:
             self.copy()
             self.text_area.delete("sel.first","sel.last")
         except:
             pass
+    #Code for paste.
     def paste(self):
         try:
             self.text_area.insert(INSERT,self.text_area.clipboard_get())
             pass
         except:
             pass
+    #Code for delete.
     def delete(self):
         try:
             self.text_area.delete("sel.first","sel.last")
         except:
             pass
+    ##Code for undo.
     def undo(self):
         try:
             self.text_area.edit_undo()
             print("0")
         except:
             pass
+    #Code for redo.
     def redo(self,event=""):
         try:
             self.text_area.edit_redo()
         except:
             pass
+    #Code for upper.
     def upper1(self,event=""):
         try:
             data=self.text_area.selection_get()
@@ -193,6 +205,7 @@ class TextEditor:
             self.text_area.insert(self.pos,data)
         except:
             pass
+    #Code for lower.
     def low1(self,event=""):
         try:
             data=self.text_area.selection_get()
@@ -203,6 +216,7 @@ class TextEditor:
             self.text_area.insert(self.pos,data)
         except:
             pass
+    #Code for swapcase.
     def swapcase(self,event=""):
         try:
             data=self.text_area.selection_get()
@@ -213,6 +227,7 @@ class TextEditor:
             self.text_area.insert(self.pos,data)
         except:
             pass
+    #Code for title case.
     def title_case(self,event=""):
         try:
             data=self.text_area.selection_get()
@@ -223,6 +238,7 @@ class TextEditor:
             self.text_area.insert(self.pos,data)
         except:
             pass
+    #Code for Fonts.
     def FontHelvetica(self):
         '''self.text_area.selection_get().config(font="Helvetica")
         self.pos=self.text_area.index("sel.first")
@@ -265,16 +281,20 @@ class TextEditor:
 
     def FontBook_Antiqua(self):
         self.text_area.config(font="Book_Antiqua")
+    #Code for date.
     def date(self,event=""):
         self.date_object = datetime.date.today()
         self.text_area.insert(INSERT,self.date_object)
+    #Code for date time.
     def date_time(self,event=""):
         self.datetime_object = datetime.datetime.now()
         self.text_area.insert(INSERT,self.datetime_object)
+    #Code for help.
     def HELP(self,event=""):
         self.url="file:///D:/pythonp/gui/text_editor_help.html"
         new=2
         webbrowser.open(self.url,new=new)
+    #Code for about.
     def ABOUT(self):
         #pass
 
